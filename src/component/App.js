@@ -50,9 +50,25 @@ class App extends Component {
           id: 5
         }
       ],
-      canInput: false
+      canInput: false,
+      formBtnText: 'Add movie'
     }
   }
+  fromValueObject = {}
+
+
+  
+handleChange(e) {
+    /*this.setState({
+        ...this.state,
+        singleMovie:{
+            ...this.state.singleMovie,
+            [e.target.name]: e.target.value
+        }
+    })*/
+    this.fromValueObject[e.target.name] = e.target.value
+    console.log(this.fromValueObject)
+}
 
   UpdateMoveList = (updateMovie)=>{
     let movieInState = [...this.state.movie]
@@ -72,61 +88,66 @@ class App extends Component {
    if(this.state.canInput){
       this.setState({
         ...this.state,
-        canInput: false
+        canInput: false,
+        formBtnText: 'Add movie'
       })
    }else{
     this.setState({
       ...this.state,
-      canInput: true
+      canInput: true,
+      formBtnText: 'Close'
     })
    }
-  }
+  } 
 
   inputFormState(){
     let output = null
     if(this.state.canInput){
       output = (
         <div>
-            <form ref="form">
-                <div className="row">
-                    <div className="col-6">
-                        <div className="form-group">
-                            <label htmlFor="formField1">Movie Name</label>
-                            <input type="text" className="form-control" id="formField1" name="name" />
-                        </div>
-                        <div className="form-group">
-                            <label htmlFor="formField2">Movie Catagorie</label>
-                            <input type="text" className="form-control" id="formField2" name="catagorie"/>
-                        </div>
-                        <div className="form-group">
-                            <label htmlFor="formField3">Movie Director</label>
-                            <input type="text" className="form-control" id="formField3" name="director"/>
-                        </div>
-                    </div>
-                    <div className="col-6">
-                        <div className="form-group">
-                            <label htmlFor="formField4">Movie Rattting</label>
-                            <input type="text" className="form-control" id="formField4" name="ratting" />
-                        </div>
-                        <div className="form-group">
-                            <label htmlFor="formField5">Movie Thumb</label>
-                            <input type="text" className="form-control" id="formField5" name="thumb"  />
-                        </div>
-                        <div className="form-group">
-                            <label></label>
-                            <button className="btn btn-info btn-lg btn-block" type="submit">Update</button>
-                        </div>
-                    </div>
-                </div>
-            </form>
+          <hr/>
+          <form ref="form">
+              <div className="row">
+                  <div className="col-6">
+                      <div className="form-group">
+                          <label htmlFor="formField1">Movie Name</label>
+                          <input type="text" className="form-control" id="formField1" name="name"  onChange={this.handleChange.bind(this)}/>
+                      </div>
+                      <div className="form-group">
+                          <label htmlFor="formField2">Movie Catagorie</label>
+                          <input type="text" className="form-control" id="formField2" name="catagorie" onChange={this.handleChange.bind(this)}/>
+                      </div>
+                      <div className="form-group">
+                          <label htmlFor="formField3">Movie Director</label>
+                          <input type="text" className="form-control" id="formField3" name="director"  onChange={this.handleChange.bind(this)}/>
+                      </div>
+                  </div>
+                  <div className="col-6">
+                      <div className="form-group">
+                          <label htmlFor="formField4">Movie Rattting</label>
+                          <input type="text" className="form-control" id="formField4" name="ratting" onChange={this.handleChange.bind(this)}/>
+                      </div>
+                      <div className="form-group">
+                          <label htmlFor="formField5">Movie Thumb</label>
+                          <input type="text" className="form-control" id="formField5" name="thumb" onChange={this.handleChange.bind(this)}/>
+                      </div>
+                      <div className="form-group">
+                          <label></label>
+                          <button className="btn btn-info btn-lg btn-block" type="submit">Save</button>
+                      </div>
+                  </div>
+              </div>
+          </form>
         </div>
       )
+
     }else{
       output = (
         <div>
           <h1>Hello there form output mood</h1>
         </div>
       )
+
     }
     return output
   }
@@ -138,7 +159,7 @@ class App extends Component {
           <div className="col-md-12">
               <div className="movie-entry-block">
                 <button className="btn btn-default" onClick ={()=>this.inputHendeler()} >
-                  Add Movie
+                  {this.state.formBtnText}
                 </button>
                 {this.inputFormState()}
               </div>

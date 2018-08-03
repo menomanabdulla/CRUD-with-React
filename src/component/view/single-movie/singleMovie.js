@@ -12,8 +12,9 @@ class SinglMovie extends Component{
             singleMovie: this.props.singleMovie,
             isEdit: false
         }
+        
     }
-
+    
     ratting(){
         let length = this.props.singleMovie.ratting,i=0
         if(length>5){
@@ -43,15 +44,8 @@ class SinglMovie extends Component{
         })
     }
 
-   //@autobind
     add(e) {
         e.preventDefault();
-       // this.refs.form
-        //console.log(this.refs.form.reset())
-        //this.refs.form[0].reset()
-
-       
-        //console.log(this.state.singleMovie)
         this.props.MovieUpdate(this.state.singleMovie)
          this.setState({
             isEdit: false,
@@ -66,7 +60,6 @@ class SinglMovie extends Component{
     }
     deleteHandelar(){
        this.props.MovieDelete(this.state.singleMovie)
-       // console.log(this.props.MovieDelete)
     }
     changeAble(){
         let output = null
@@ -142,5 +135,4 @@ class SinglMovie extends Component{
         )
     }
 }
-
 export default SinglMovie
