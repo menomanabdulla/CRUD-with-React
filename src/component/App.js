@@ -56,27 +56,44 @@ class App extends Component {
   }
   fromValueObject = {}
 
-
-  
   handleChange(e) {
       this.fromValueObject[e.target.name] = e.target.value
       console.log(this.fromValueObject)
   }
   addMovie(e){
     e.preventDefault();
-    for(let property in this.fromValueObject){
-     // console.log(this.fromValueObject[property])
-     if(!this.fromValueObject[property]){
-        alert('empty input field')
-        //let withNewMovie = this.state.movie.concat(this.fromValueObject)
+    /*for(let property in this.fromValueObject){
+      console.log(this.fromValueObject)
+     if(!(this.fromValueObject[property] == '')){
+        //console.log(this.fromValueObject)
+        let withNewMovie = this.state.movie.concat(this.fromValueObject)
+        this.setState({
+          canInput: false,
+          formBtnText: 'Add movie',
+          movie: withNewMovie
+        })
+        this.fromValueObject = {}
+      }else{
         this.setState({
           canInput: false,
           formBtnText: 'Add movie'
         })
+        this.fromValueObject = {}
       }
-
-    }
+    }*/
     
+    if(this.state.movie.length===0){
+      this.fromValueObject['id'] = 0
+    }else{
+      this.fromValueObject['id'] = this.state.movie.length
+    }
+    console.log(this.fromValueObject)
+    let withNewMovie = this.state.movie.concat(this.fromValueObject)
+    this.setState({
+      canInput: false,
+      formBtnText: 'Add movie',
+      movie: withNewMovie
+    })
     this.fromValueObject={}
   }
 
