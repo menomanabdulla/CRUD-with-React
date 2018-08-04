@@ -58,17 +58,27 @@ class App extends Component {
 
 
   
-handleChange(e) {
-    /*this.setState({
-        ...this.state,
-        singleMovie:{
-            ...this.state.singleMovie,
-            [e.target.name]: e.target.value
-        }
-    })*/
-    this.fromValueObject[e.target.name] = e.target.value
-    console.log(this.fromValueObject)
-}
+  handleChange(e) {
+      this.fromValueObject[e.target.name] = e.target.value
+      console.log(this.fromValueObject)
+  }
+  addMovie(e){
+    e.preventDefault();
+    for(let property in this.fromValueObject){
+     // console.log(this.fromValueObject[property])
+     if(!this.fromValueObject[property]){
+        alert('empty input field')
+        //let withNewMovie = this.state.movie.concat(this.fromValueObject)
+        this.setState({
+          canInput: false,
+          formBtnText: 'Add movie'
+        })
+      }
+
+    }
+    
+    this.fromValueObject={}
+  }
 
   UpdateMoveList = (updateMovie)=>{
     let movieInState = [...this.state.movie]
@@ -85,19 +95,19 @@ handleChange(e) {
     })
   }
   inputHendeler = ()=>{
-   if(this.state.canInput){
+    if(this.state.canInput){
       this.setState({
         ...this.state,
         canInput: false,
         formBtnText: 'Add movie'
       })
-   }else{
+    }else{
     this.setState({
       ...this.state,
       canInput: true,
       formBtnText: 'Close'
     })
-   }
+    }
   } 
 
   inputFormState(){
@@ -106,7 +116,7 @@ handleChange(e) {
       output = (
         <div>
           <hr/>
-          <form ref="form">
+          <form ref="form" onSubmit={this.addMovie.bind(this)}>
               <div className="row">
                   <div className="col-6">
                       <div className="form-group">
@@ -140,18 +150,15 @@ handleChange(e) {
           </form>
         </div>
       )
-
     }else{
       output = (
         <div>
           <h1>Hello there form output mood</h1>
         </div>
       )
-
     }
     return output
   }
-
   render(){
     return (
       <div className="container">
@@ -175,4 +182,4 @@ handleChange(e) {
   }
 }
 
-export default App;
+export default App

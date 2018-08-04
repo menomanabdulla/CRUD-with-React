@@ -35,6 +35,7 @@ class SinglMovie extends Component{
 
    //@autobind
     handleChange(e) {
+        console.log(this.props)
         this.setState({
             ...this.state,
             singleMovie:{
@@ -46,6 +47,7 @@ class SinglMovie extends Component{
 
     add(e) {
         e.preventDefault();
+        //console.log(this.state.singleMovie)
         this.props.MovieUpdate(this.state.singleMovie)
          this.setState({
             isEdit: false,
