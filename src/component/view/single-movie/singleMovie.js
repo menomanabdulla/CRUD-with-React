@@ -35,7 +35,7 @@ class SinglMovie extends Component{
 
    //@autobind
     handleChange(e) {
-        console.log(this.props)
+        //console.log(this.props)
         this.setState({
             ...this.state,
             singleMovie:{

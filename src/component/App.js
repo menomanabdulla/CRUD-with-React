@@ -51,11 +51,12 @@ class App extends Component {
         }
       ],
       canInput: false,
-      formBtnText: 'Add movie'
+      formBtnText: 'Add movie',
+      search: ' ',
+      searchItem: []
     }
   }
   fromValueObject = {}
-
   handleChange(e) {
       this.fromValueObject[e.target.name] = e.target.value
       console.log(this.fromValueObject)
@@ -176,12 +177,50 @@ class App extends Component {
     }
     return output
   }
+
+  /*filteredMovie = this.state.movie.filter(
+    (toFilteredMovie) => {
+      var movieInfo = toFilteredMovie.name.toLowerCase() + toFilteredMovie.catagorie.toLowerCase()
+      return movieInfo.indexOf(this.state.search.toLowerCase()) !== -1;
+    }
+  )*/
+
+  /*filteredMovie(){
+    this.setState({
+      ...this.state,
+     
+    })
+  }*/
+  
+  searchHendel(e) {
+    this.setState({
+      ...this.state,
+      search: e.target.value,
+      movie: this.state.movie.filter(
+        //item => item.news_id == id
+        (toFilteredMovie) => {
+          let movieInfo = toFilteredMovie.name.toLowerCase() +' '+ toFilteredMovie.catagorie.toLowerCase()
+          //console.log(movieInfo)
+          return movieInfo.indexOf(this.state.search.toLowerCase()) !== -1;
+        }
+      )
+    })
+
+    //console.log(this.state.search)
+   //console.log(this.state.movie)
+  }
+ 
   render(){
     return (
       <div className="container">
         <div className="row">
           <div className="col-md-12">
               <div className="movie-entry-block">
+                <input type='text' 
+                  value = {this.state.search}
+                  onChange={this.searchHendel.bind(this)}
+                  placeholder="Search Here"
+                />
                 <button className="btn btn-default" onClick ={()=>this.inputHendeler()} >
                   {this.state.formBtnText}
                 </button>

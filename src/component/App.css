@@ -11,3 +11,15 @@
     height: 100vh;
     background: #ddd;
 }
+/*.movie-entry-block{
+    display: flex;
+}
+.movie-entry-block input{
+    flex-grow: 2;
+    min-width: 450px;   
+}
+
+.movie-entry-block button{
+    flex-grow: 2;
+    min-width: 250px;  
+}*/
