@@ -63,26 +63,7 @@ class App extends Component {
   }
   addMovie(e){
     e.preventDefault();
-    /*for(let property in this.fromValueObject){
-      console.log(this.fromValueObject)
-     if(!(this.fromValueObject[property] == '')){
-        //console.log(this.fromValueObject)
-        let withNewMovie = this.state.movie.concat(this.fromValueObject)
-        this.setState({
-          canInput: false,
-          formBtnText: 'Add movie',
-          movie: withNewMovie
-        })
-        this.fromValueObject = {}
-      }else{
-        this.setState({
-          canInput: false,
-          formBtnText: 'Add movie'
-        })
-        this.fromValueObject = {}
-      }
-    }*/
-    
+   
     if(this.state.movie.length===0){
       this.fromValueObject['id'] = 0
     }else{
@@ -95,6 +76,7 @@ class App extends Component {
       formBtnText: 'Add movie',
       movie: withNewMovie
     })
+    console.log(this.state.movie)
     this.fromValueObject={}
   }
 
@@ -171,59 +153,75 @@ class App extends Component {
     }else{
       output = (
         <div>
-          <h1>Hello there form output mood</h1>
         </div>
       )
     }
     return output
   }
 
-  /*filteredMovie = this.state.movie.filter(
-    (toFilteredMovie) => {
-      var movieInfo = toFilteredMovie.name.toLowerCase() + toFilteredMovie.catagorie.toLowerCase()
-      return movieInfo.indexOf(this.state.search.toLowerCase()) !== -1;
-    }
-  )*/
-
-  /*filteredMovie(){
-    this.setState({
-      ...this.state,
-     
-    })
-  }*/
-  
   searchHendel(e) {
     this.setState({
       ...this.state,
       search: e.target.value,
       movie: this.state.movie.filter(
-        //item => item.news_id == id
         (toFilteredMovie) => {
           let movieInfo = toFilteredMovie.name.toLowerCase() +' '+ toFilteredMovie.catagorie.toLowerCase()
-          //console.log(movieInfo)
           return movieInfo.indexOf(this.state.search.toLowerCase()) !== -1;
         }
       )
     })
-
-    //console.log(this.state.search)
-   //console.log(this.state.movie)
   }
- 
+  ascenSortHendeler(){
+    this.setState({
+      ...this.state,
+      bookes: this.state.movie.sort((a,b)=>{
+        if(a.name<b.name){
+          return -1;
+        }else if(a.name>b.name){
+          return 1;
+        }else{
+          return 0;
+        }
+      })
+    })
+  }
+
+  desceSortHendeler(){
+    this.setState({
+      ...this.state,
+      bookes: this.state.movie.sort((a,b)=>{
+        if(a.name<b.name){
+          return 1;
+        }else if(a.name>b.name){
+          return -1;
+        }else{
+          return 0;
+        }
+      })
+    })
+  }
   render(){
     return (
       <div className="container">
         <div className="row">
           <div className="col-md-12">
               <div className="movie-entry-block">
-                <input type='text' 
-                  value = {this.state.search}
-                  onChange={this.searchHendel.bind(this)}
-                  placeholder="Search Here"
-                />
-                <button className="btn btn-default" onClick ={()=>this.inputHendeler()} >
-                  {this.state.formBtnText}
-                </button>
+                <div>
+                  <input className="search-input" type='text' 
+                    value = {this.state.search}
+                    onChange={this.searchHendel.bind(this)}
+                    placeholder="Search Here"
+                  />
+                  <button className="btn btn-primary" onClick ={()=>this.inputHendeler()} >
+                    {this.state.formBtnText}
+                  </button>
+                  <button className="btn btn-primary" onClick = {()=>this.ascenSortHendeler()}>
+                    Ascen Sort
+                  </button>
+                  <button className="btn btn-primary" onClick = {()=>this.desceSortHendeler()}>
+                    Descen Sort
+                  </button>
+                </div>
                 {this.inputFormState()}
               </div>
               <div className="movie-view-block">
